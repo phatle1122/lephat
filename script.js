@@ -64,7 +64,10 @@ function playSoundtrack() {
     playPromise.then(() => {
       hasStartedMusic = true;
       setMusicUIPlaying(true);
-      removeUnlockListeners();
+      ['pointerdown', 'touchstart', 'click'].forEach(evt => {
+        window.removeEventListener(evt, unlockAudioOnce);
+        document.removeEventListener(evt, unlockAudioOnce);
+      });
     }).catch(() => {
       // Browser Autoplay Policy requires user gesture
       setMusicUIPlaying(false);
