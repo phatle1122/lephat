@@ -1479,6 +1479,266 @@ img, video {
 }
 
 /* ========================================================
+   DISCORD LANYARD LIVE PROFILE WIDGET (GÓC DƯỚI)
+   ======================================================== */
+.discord-lanyard-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 320px;
+  background: rgba(14, 18, 28, 0.92);
+  border: 1px solid rgba(88, 101, 242, 0.45);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(88, 101, 242, 0.25);
+  z-index: 95;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+}
+
+.discord-lanyard-widget:hover {
+  transform: translateY(-3px);
+  border-color: #5865f2;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(88, 101, 242, 0.45);
+}
+
+.lanyard-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 2px;
+}
+
+.lanyard-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+}
+
+.lanyard-brand i {
+  color: #5865f2;
+  font-size: 0.88rem;
+}
+
+.lanyard-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.lanyard-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #6b7280;
+}
+
+.lanyard-status-dot.online { background-color: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.lanyard-status-dot.idle { background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.lanyard-status-dot.dnd { background-color: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.lanyard-status-dot.offline { background-color: #6b7280; }
+
+.lanyard-status-name {
+  color: #94a3b8;
+  text-transform: capitalize;
+}
+
+.lanyard-user-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lanyard-avatar-container {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lanyard-avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg, #ff007f, #ff7700, #00f5d4, #ff007f);
+  animation: rotateFireRing 4s linear infinite;
+  z-index: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 0, 128, 0.7));
+}
+
+.lanyard-avatar-img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0f1320;
+  background: #0f1320;
+}
+
+.lanyard-status-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 2.5px solid #0e121c;
+  background-color: #6b7280;
+  z-index: 3;
+}
+
+.lanyard-status-badge.online { background-color: #22c55e; }
+.lanyard-status-badge.idle { background-color: #f59e0b; }
+.lanyard-status-badge.dnd { background-color: #ef4444; }
+.lanyard-status-badge.offline { background-color: #6b7280; }
+
+.lanyard-user-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.lanyard-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lanyard-display-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.lanyard-username {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.lanyard-external-btn {
+  color: #94a3b8;
+  font-size: 0.88rem;
+  padding: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease-out;
+  text-decoration: none;
+}
+
+.lanyard-external-btn:hover {
+  color: #00d2ff;
+  background: rgba(0, 210, 255, 0.1);
+  transform: translate(2px, -2px);
+}
+
+/* Custom Status Pill / Bio Bubble */
+.lanyard-status-bubble {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 7px 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  min-height: 32px;
+}
+
+.lanyard-bubble-emoji {
+  flex-shrink: 0;
+  font-size: 0.88rem;
+}
+
+.lanyard-bubble-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+}
+
+/* Footer detail items */
+.lanyard-footer-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.74rem;
+  color: #94a3b8;
+  padding-top: 2px;
+}
+
+.lanyard-detail-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-label {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.detail-link {
+  color: #00d2ff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.detail-link:hover {
+  color: #00f5d4;
+  text-decoration: underline;
+}
+
+.detail-text {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* Mobile responsive for lanyard widget */
+@media (max-width: 768px) {
+  .discord-lanyard-widget {
+    position: static;
+    width: 100%;
+    margin-top: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ========================================================
    WIDESCREEN & MOBILE RESPONSIVE ADAPTATIONS
    ======================================================== */
 @media (max-width: 1060px) {

@@ -578,3 +578,138 @@ setInterval(updateLiveClock, 1000);
   }
   requestAnimationFrame(loop);
 })();
+
+// ========================================================
+// REAL-TIME DISCORD LANYARD STATUS & BIO ENGINE (WEBSOCKET + REST)
+// ========================================================
+(function initDiscordLanyard() {
+  let discordUserId = localStorage.getItem('paneer_discord_id') || '';
+
+  const statusDot = document.getElementById('discord-status-dot');
+  const statusName = document.getElementById('discord-status-name');
+  const statusBadge = document.getElementById('discord-status-badge');
+  const avatarImg = document.getElementById('discord-avatar-img');
+  const displayNameEl = document.getElementById('discord-display-name');
+  const usernameEl = document.getElementById('discord-username');
+  const bubbleEmoji = document.getElementById('discord-bubble-emoji');
+  const bubbleText = document.getElementById('discord-bubble-text');
+
+  function updateDiscordUI(data) {
+    if (!data) return;
+    const { discord_user, discord_status, activities } = data;
+
+    // 1. Trạng thái hoạt động (Online, Idle, DND, Offline)
+    const statusMap = {
+      online: { label: 'Online', class: 'online' },
+      idle: { label: 'Chờ', class: 'idle' },
+      dnd: { label: 'Đừng làm phiền', class: 'dnd' },
+      offline: { label: 'Offline', class: 'offline' }
+    };
+    const s = statusMap[discord_status] || statusMap.offline;
+
+    if (statusDot) statusDot.className = `lanyard-status-dot ${s.class}`;
+    if (statusBadge) statusBadge.className = `lanyard-status-badge ${s.class}`;
+    if (statusName) statusName.textContent = s.label;
+
+    // 2. Avatar trực tiếp từ tài khoản Discord
+    if (discord_user && discord_user.avatar && avatarImg) {
+      const isGif = discord_user.avatar.startsWith('a_');
+      const ext = isGif ? 'gif' : 'png';
+      avatarImg.src = `https://cdn.discordapp.com/avatars/${discord_user.id}/${discord_user.avatar}.${ext}?size=128`;
+    }
+
+    // 3. Tên hiển thị và Username
+    if (discord_user) {
+      if (displayNameEl) {
+        displayNameEl.textContent = discord_user.global_name || discord_user.display_name || discord_user.username;
+      }
+      if (usernameEl) {
+        usernameEl.textContent = `@${discord_user.username}`;
+      }
+    }
+
+    // 4. Tiểu sử & Trạng thái tùy chỉnh (Custom Status)
+    const customStatus = activities ? activities.find(a => a.type === 4) : null;
+    if (customStatus) {
+      if (bubbleText) bubbleText.textContent = customStatus.state || 'Đang hoạt động';
+      if (bubbleEmoji) {
+        if (customStatus.emoji) {
+          if (customStatus.emoji.id) {
+            bubbleEmoji.innerHTML = `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.png?size=32" alt="emoji" style="width:16px;height:16px;vertical-align:middle;">`;
+          } else {
+            bubbleEmoji.textContent = customStatus.emoji.name || '💬';
+          }
+        } else {
+          bubbleEmoji.textContent = '💬';
+        }
+      }
+    }
+  }
+
+  let ws = null;
+  let heartbeatTimer = null;
+
+  function connectLanyard(userId) {
+    if (!userId) return;
+    try {
+      if (ws) { ws.close(); }
+      clearInterval(heartbeatTimer);
+
+      // Fetch REST API ngay lập tức
+      fetch(`https://api.lanyard.rest/v1/users/${userId}`)
+        .then(res => res.json())
+        .then(json => {
+          if (json && json.success && json.data) {
+            updateDiscordUI(json.data);
+          }
+        })
+        .catch(() => {});
+
+      // Mở WebSocket để nhận cập nhật trạng thái thời gian thực
+      ws = new WebSocket('wss://api.lanyard.rest/socket');
+
+      ws.onopen = () => {
+        ws.send(JSON.stringify({
+          op: 2,
+          d: { subscribe_to_id: userId }
+        }));
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const packet = JSON.parse(event.data);
+          if (packet.op === 1) {
+            const interval = packet.d.heartbeat_interval;
+            heartbeatTimer = setInterval(() => {
+              if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ op: 3 }));
+              }
+            }, interval);
+          } else if (packet.op === 0) {
+            if (packet.t === 'INIT_STATE' || packet.t === 'PRESENCE_UPDATE') {
+              updateDiscordUI(packet.d);
+            }
+          }
+        } catch (e) {}
+      };
+
+      ws.onclose = () => {
+        clearInterval(heartbeatTimer);
+        setTimeout(() => connectLanyard(userId), 6000);
+      };
+    } catch (err) {}
+  }
+
+  window.setDiscordUserId = function(newId) {
+    if (newId) {
+      localStorage.setItem('paneer_discord_id', newId);
+      discordUserId = newId;
+      connectLanyard(newId);
+    }
+  };
+
+  if (discordUserId) {
+    connectLanyard(discordUserId);
+  }
+})();
+
