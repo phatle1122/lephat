@@ -599,9 +599,17 @@ setInterval(updateLiveClock, 1000);
   const decorationImg = document.getElementById('discord-avatar-decoration');
   const displayNameEl = document.getElementById('discord-display-name');
   const usernameEl = document.getElementById('discord-username');
-  const bubbleEmoji = document.getElementById('discord-bubble-emoji');
-  const bubbleText = document.getElementById('discord-bubble-text');
+  const bioEmoji = document.getElementById('discord-bio-emoji') || document.getElementById('discord-bubble-emoji');
+  const bioText = document.getElementById('discord-bio-text') || document.getElementById('discord-bubble-text');
   const mainStatusIndicator = document.querySelector('.status-indicator');
+
+  // Khôi phục ngay trạng thái Discord gần nhất từ bộ nhớ khi vừa tải trang
+  const cachedStatus = localStorage.getItem('paneer_last_discord_status');
+  const cachedEmoji = localStorage.getItem('paneer_last_discord_emoji');
+  if (cachedStatus && bioText) {
+    bioText.textContent = cachedStatus;
+    if (cachedEmoji && bioEmoji) bioEmoji.innerHTML = cachedEmoji;
+  }
 
   function updateDiscordUI(data) {
     if (!data) return;
@@ -653,24 +661,33 @@ setInterval(updateLiveClock, 1000);
       }
     }
 
-    // 5. Tiểu sử & Trạng thái tùy chỉnh (Custom Status / Bio)
+    // 5. Tiểu sử & Trạng thái tùy chỉnh thời gian thực từ Discord
     const customStatus = activities ? activities.find(a => a.type === 4) : null;
     if (customStatus && customStatus.state) {
-      if (bubbleText) bubbleText.textContent = customStatus.state;
-      if (bubbleEmoji) {
-        if (customStatus.emoji) {
-          if (customStatus.emoji.id) {
-            bubbleEmoji.innerHTML = `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.png?size=32" alt="emoji" style="width:16px;height:16px;vertical-align:middle;">`;
-          } else {
-            bubbleEmoji.textContent = customStatus.emoji.name || '💬';
-          }
+      const stateText = customStatus.state;
+      let emojiHtml = '💬';
+      if (customStatus.emoji) {
+        if (customStatus.emoji.id) {
+          emojiHtml = `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.png?size=32" alt="emoji" style="width:20px;height:20px;vertical-align:middle;display:inline-block;">`;
         } else {
-          bubbleEmoji.textContent = '💬';
+          emojiHtml = customStatus.emoji.name || '💬';
         }
       }
+
+      // Lưu trạng thái mới nhất vào bộ nhớ để khi offline vẫn giữ nguyên
+      localStorage.setItem('paneer_last_discord_status', stateText);
+      localStorage.setItem('paneer_last_discord_emoji', emojiHtml);
+
+      if (bioText) bioText.textContent = stateText;
+      if (bioEmoji) bioEmoji.innerHTML = emojiHtml;
     } else {
-      if (bubbleText) bubbleText.textContent = 'Gọi em là em, đơn giản em là em.';
-      if (bubbleEmoji) bubbleEmoji.textContent = '❤️ 🔥';
+      // Nếu Discord đang tắt hoặc offline, khôi phục trạng thái gần nhất paneer từng đặt
+      const cachedStatus = localStorage.getItem('paneer_last_discord_status');
+      const cachedEmoji = localStorage.getItem('paneer_last_discord_emoji');
+      if (cachedStatus && bioText) {
+        bioText.textContent = cachedStatus;
+        if (cachedEmoji && bioEmoji) bioEmoji.innerHTML = cachedEmoji;
+      }
     }
   }
 
