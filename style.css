@@ -430,6 +430,17 @@ img, video {
   transform: scale(1.0);
 }
 
+.main-avatar-decoration {
+  position: absolute;
+  inset: -14px;
+  width: calc(100% + 28px);
+  height: calc(100% + 28px);
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 0 16px rgba(255, 187, 0, 0.95)) drop-shadow(0 0 28px rgba(255, 119, 0, 0.6));
+  transform: translateZ(28px);
+}
+
 .status-indicator {
   position: absolute;
   bottom: 8px;
@@ -439,9 +450,9 @@ img, video {
   border-radius: 50%;
   background: radial-gradient(circle, #22c55e, #15803d);
   border: 3.5px solid #080a12;
-  z-index: 2;
+  z-index: 5;
   box-shadow: 0 0 12px #22c55e;
-  transform: translateZ(25px);
+  transform: translateZ(35px);
 }
 
 /* Profile Details */
