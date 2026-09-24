@@ -11,7 +11,237 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=3.0">
+  <link rel="stylesheet" href="style.css?v=5.0">
+  <style>
+    /* ========================================================
+       DISCORD COMMUNITIES - ULTRA MODERN DISCORD CARDS
+       ======================================================== */
+    .discord-servers-section {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+
+    .community-cards-list {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 16px !important;
+      width: 100% !important;
+    }
+
+    .discord-community-card {
+      display: flex !important;
+      flex-direction: column !important;
+      background: #14161f !important;
+      background: linear-gradient(180deg, #181b26 0%, #12141c 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      text-decoration: none !important;
+      color: #ffffff !important;
+      position: relative !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 1px rgba(255, 255, 255, 0.2) inset !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transform-style: preserve-3d !important;
+      cursor: pointer !important;
+    }
+
+    .discord-community-card:hover {
+      border-color: rgba(88, 101, 242, 0.7) !important;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(88, 101, 242, 0.4) !important;
+      transform: translateY(-4px) scale(1.015) !important;
+    }
+
+    .community-banner {
+      position: relative !important;
+      width: 100% !important;
+      height: 105px !important;
+      overflow: hidden !important;
+      background: #0d0f15 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .community-banner::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, transparent 40%, rgba(18, 20, 28, 0.95) 100%) !important;
+      pointer-events: none !important;
+    }
+
+    .community-banner-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .discord-community-card:hover .community-banner-img {
+      transform: scale(1.08) !important;
+    }
+
+    .community-badge-tag {
+      position: absolute !important;
+      top: 10px !important;
+      left: 12px !important;
+      z-index: 2 !important;
+      font-family: 'Cinzel', 'Plus Jakarta Sans', monospace, sans-serif !important;
+      font-size: 0.62rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      color: rgba(255, 255, 255, 0.88) !important;
+      background: rgba(8, 10, 16, 0.65) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      padding: 3px 8px !important;
+      border-radius: 6px !important;
+      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9) !important;
+    }
+
+    .community-body {
+      padding: 14px 16px 14px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 10px !important;
+      flex: 1 !important;
+      text-decoration: none !important;
+    }
+
+    .community-profile {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    .community-avatar-box {
+      width: 46px !important;
+      height: 46px !important;
+      min-width: 46px !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      background: #151824 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    .community-avatar-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .community-info {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2px !important;
+      min-width: 0 !important;
+    }
+
+    .community-title {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      margin: 0 !important;
+      line-height: 1.25 !important;
+      letter-spacing: -0.01em !important;
+      text-decoration: none !important;
+    }
+
+    .community-sub {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      font-size: 0.78rem !important;
+      color: #949ba4 !important;
+      font-weight: 500 !important;
+      text-decoration: none !important;
+    }
+
+    .community-sub i {
+      color: #5865f2 !important;
+      font-size: 0.88rem !important;
+    }
+
+    .community-description {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 0.84rem !important;
+      color: #949ba4 !important;
+      line-height: 1.45 !important;
+      margin: 0 !important;
+      text-decoration: none !important;
+    }
+
+    .community-action-row {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      padding-top: 10px !important;
+      margin-top: auto !important;
+      text-decoration: none !important;
+    }
+
+    .community-action-label {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 0.84rem !important;
+      font-weight: 600 !important;
+      color: #dbdee1 !important;
+      transition: color 0.2s ease !important;
+      text-decoration: none !important;
+    }
+
+    .community-arrow {
+      font-size: 0.8rem !important;
+      color: #949ba4 !important;
+      transition: transform 0.2s ease, color 0.2s ease !important;
+    }
+
+    .discord-community-card:hover .community-action-label {
+      color: #ffffff !important;
+    }
+
+    .discord-community-card:hover .community-arrow {
+      color: #00d2ff !important;
+      transform: translate(2px, -2px) !important;
+    }
+
+    .community-quote-footer {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      padding-top: 8px !important;
+    }
+
+    .community-quote-bullet {
+      width: 6px !important;
+      height: 6px !important;
+      border-radius: 50% !important;
+      background: #c084fc !important;
+      box-shadow: 0 0 8px #c084fc !important;
+    }
+
+    .community-quote-text {
+      font-family: 'Plus Jakarta Sans', monospace, sans-serif !important;
+      font-size: 0.8rem !important;
+      font-weight: 500 !important;
+      color: rgba(255, 255, 255, 0.5) !important;
+      letter-spacing: 0.02em !important;
+    }
+
+    @media (max-width: 768px) {
+      .community-cards-list {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+    }
+  </style>
 </head>
 
 <body id="body-root">
@@ -273,68 +503,68 @@
             <span>DISCORD COMMUNITIES</span>
           </div>
 
-          <div class="community-cards-list">
+          <div class="community-cards-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; width:100%;">
             <!-- Server 1: TxH Corporation -->
-            <a href="https://discord.gg/" target="_blank" rel="noopener" class="discord-community-card" data-tilt="3d" data-tilt-max="10">
+            <a href="https://discord.gg/" target="_blank" rel="noopener" class="discord-community-card" data-tilt="3d" data-tilt-max="10" style="text-decoration:none !important; color:#ffffff !important; display:flex !important; flex-direction:column !important; background:#141620 !important; border:1px solid rgba(255,255,255,0.1) !important; border-radius:16px !important; overflow:hidden !important; box-shadow:0 12px 32px rgba(0,0,0,0.8) !important;">
               <div class="card-3d-glare"></div>
-              <div class="community-banner">
-                <span class="community-badge-tag">THE COLLECTIVE</span>
-                <img src="banner-txh.png" alt="TxH Corporation Banner" class="community-banner-img">
+              <div class="community-banner" style="position:relative; width:100%; height:110px; overflow:hidden; background:#0d0f15;">
+                <span class="community-badge-tag" style="position:absolute; top:10px; left:12px; z-index:2; font-family:'Cinzel', sans-serif; font-size:0.62rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:#fff; background:rgba(8,10,16,0.7); backdrop-filter:blur(8px); padding:3px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.15);">THE COLLECTIVE</span>
+                <img src="banner-txh.png" alt="TxH Corporation Banner" class="community-banner-img" style="width:100%; height:100%; object-fit:cover; display:block;">
               </div>
-              <div class="community-body">
-                <div class="community-profile">
-                  <div class="community-avatar-box">
-                    <img src="icon-txh-sharp.png" alt="TxH Corporation" class="community-avatar-img">
+              <div class="community-body" style="padding:14px 16px 14px; display:flex; flex-direction:column; gap:10px; flex:1; text-decoration:none;">
+                <div class="community-profile" style="display:flex; align-items:center; gap:12px;">
+                  <div class="community-avatar-box" style="width:46px; height:46px; min-width:46px; border-radius:12px; overflow:hidden; border:1.5px solid rgba(255,255,255,0.15); background:#151824;">
+                    <img src="icon-txh-sharp.png" alt="TxH Corporation" class="community-avatar-img" style="width:100%; height:100%; object-fit:cover; display:block;">
                   </div>
-                  <div class="community-info">
-                    <h3 class="community-title">TxH Corporation</h3>
-                    <div class="community-sub">
-                      <i class="fa-brands fa-discord"></i>
+                  <div class="community-info" style="display:flex; flex-direction:column; gap:2px; min-width:0;">
+                    <h3 class="community-title" style="margin:0; font-size:1.05rem; font-weight:700; color:#ffffff; text-decoration:none; line-height:1.25;">TxH Corporation</h3>
+                    <div class="community-sub" style="display:flex; align-items:center; gap:6px; font-size:0.78rem; color:#949ba4; text-decoration:none;">
+                      <i class="fa-brands fa-discord" style="color:#5865f2; font-size:0.88rem;"></i>
                       <span>Discord community</span>
                     </div>
                   </div>
                 </div>
-                <p class="community-description">Game tools, digital services, and the people behind TxH.</p>
-                <div class="community-action-row">
-                  <span class="community-action-label">Join community</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square community-arrow"></i>
+                <p class="community-description" style="margin:0; font-size:0.84rem; color:#949ba4; line-height:1.45; text-decoration:none;">Game tools, digital services, and the people behind TxH.</p>
+                <div class="community-action-row" style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px; margin-top:auto; text-decoration:none;">
+                  <span class="community-action-label" style="font-size:0.84rem; font-weight:600; color:#dbdee1; text-decoration:none;">Join community</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square community-arrow" style="font-size:0.8rem; color:#949ba4;"></i>
                 </div>
               </div>
             </a>
 
             <!-- Server 2: WonderLand Store -->
-            <a href="https://discord.gg/RcCabQNnr" target="_blank" rel="noopener" class="discord-community-card" data-tilt="3d" data-tilt-max="10">
+            <a href="https://discord.gg/RcCabQNnr" target="_blank" rel="noopener" class="discord-community-card" data-tilt="3d" data-tilt-max="10" style="text-decoration:none !important; color:#ffffff !important; display:flex !important; flex-direction:column !important; background:#141620 !important; border:1px solid rgba(255,255,255,0.1) !important; border-radius:16px !important; overflow:hidden !important; box-shadow:0 12px 32px rgba(0,0,0,0.8) !important;">
               <div class="card-3d-glare"></div>
-              <div class="community-banner">
-                <span class="community-badge-tag">BEYOND THE ORDINARY</span>
-                <img src="banner-wonderland.png" alt="WonderLand Store Banner" class="community-banner-img">
+              <div class="community-banner" style="position:relative; width:100%; height:110px; overflow:hidden; background:#0d0f15;">
+                <span class="community-badge-tag" style="position:absolute; top:10px; left:12px; z-index:2; font-family:'Cinzel', sans-serif; font-size:0.62rem; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:#fff; background:rgba(8,10,16,0.7); backdrop-filter:blur(8px); padding:3px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.15);">BEYOND THE ORDINARY</span>
+                <img src="banner-wonderland.png" alt="WonderLand Store Banner" class="community-banner-img" style="width:100%; height:100%; object-fit:cover; display:block;">
               </div>
-              <div class="community-body">
-                <div class="community-profile">
-                  <div class="community-avatar-box">
-                    <img src="icon-wonderland-sharp.png" alt="WonderLand Store" class="community-avatar-img">
+              <div class="community-body" style="padding:14px 16px 14px; display:flex; flex-direction:column; gap:10px; flex:1; text-decoration:none;">
+                <div class="community-profile" style="display:flex; align-items:center; gap:12px;">
+                  <div class="community-avatar-box" style="width:46px; height:46px; min-width:46px; border-radius:12px; overflow:hidden; border:1.5px solid rgba(255,255,255,0.15); background:#151824;">
+                    <img src="icon-wonderland-sharp.png" alt="WonderLand Store" class="community-avatar-img" style="width:100%; height:100%; object-fit:cover; display:block;">
                   </div>
-                  <div class="community-info">
-                    <h3 class="community-title">WonderLand Store</h3>
-                    <div class="community-sub">
-                      <i class="fa-brands fa-discord"></i>
+                  <div class="community-info" style="display:flex; flex-direction:column; gap:2px; min-width:0;">
+                    <h3 class="community-title" style="margin:0; font-size:1.05rem; font-weight:700; color:#ffffff; text-decoration:none; line-height:1.25;">WonderLand Store</h3>
+                    <div class="community-sub" style="display:flex; align-items:center; gap:6px; font-size:0.78rem; color:#949ba4; text-decoration:none;">
+                      <i class="fa-brands fa-discord" style="color:#5865f2; font-size:0.88rem;"></i>
                       <span>Discord community</span>
                     </div>
                   </div>
                 </div>
-                <p class="community-description">Explore digital services. Find your next connection.</p>
-                <div class="community-action-row">
-                  <span class="community-action-label">Join community</span>
-                  <i class="fa-solid fa-arrow-up-right-from-square community-arrow"></i>
+                <p class="community-description" style="margin:0; font-size:0.84rem; color:#949ba4; line-height:1.45; text-decoration:none;">Explore digital services. Find your next connection.</p>
+                <div class="community-action-row" style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px; margin-top:auto; text-decoration:none;">
+                  <span class="community-action-label" style="font-size:0.84rem; font-weight:600; color:#dbdee1; text-decoration:none;">Join community</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square community-arrow" style="font-size:0.8rem; color:#949ba4;"></i>
                 </div>
               </div>
             </a>
           </div>
 
           <!-- Trích dẫn triết lý cộng đồng như trong ảnh -->
-          <div class="community-quote-footer">
-            <span class="community-quote-bullet"></span>
-            <span class="community-quote-text">A shared passion. A place to belong.</span>
+          <div class="community-quote-footer" style="display:flex; align-items:center; justify-content:center; gap:8px; padding-top:10px;">
+            <span class="community-quote-bullet" style="width:6px; height:6px; border-radius:50%; background:#c084fc; box-shadow:0 0 8px #c084fc;"></span>
+            <span class="community-quote-text" style="font-family:'Plus Jakarta Sans', monospace, sans-serif; font-size:0.8rem; font-weight:500; color:rgba(255,255,255,0.55); letter-spacing:0.02em;">A shared passion. A place to belong.</span>
           </div>
         </section>
 
