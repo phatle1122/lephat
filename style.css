@@ -57,10 +57,15 @@ body {
   position: relative;
   padding: 40px 20px 80px;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img, video {
   image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* ========================================================
@@ -134,24 +139,26 @@ img, video {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.95) contrast(1.1);
+  filter: brightness(1.04) contrast(1.18) saturate(1.15);
   transform: translate3d(0, 0, 0);
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
 }
 
 .video-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.25) 0%, rgba(2, 6, 14, 0.72) 100%);
+  background: radial-gradient(circle at 50% 35%, rgba(0, 0, 0, 0.12) 0%, rgba(2, 6, 14, 0.6) 100%);
   z-index: 3;
 }
 
 .vignette-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.85) 100%);
+  background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.75) 100%);
   z-index: 3;
 }
 
