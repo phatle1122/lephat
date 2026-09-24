@@ -356,6 +356,12 @@ setInterval(updateLiveClock, 1000);
 // ULTRA 3D HOLOGRAPHIC TILT & SPECULAR GLARE ENGINE (STABILIZED)
 // ========================================================
 (function initUltra3DTilt() {
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia('(pointer: coarse)').matches;
+  if (isTouchDevice) {
+    // Keep all cards 100% upright, flat, crisp and aligned on mobile touch devices
+    return;
+  }
+
   const tiltElements = document.querySelectorAll('[data-tilt="3d"]');
 
   // Individual card tilt state

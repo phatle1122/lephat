@@ -38,19 +38,24 @@ a, button, .join-btn, .social-icon, .copy-btn, .bio-toggle-btn, .ctrl-btn, .serv
   transition: transform 0.05s ease-out !important;
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
 body {
   font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-main);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   overflow-x: hidden;
   position: relative;
-  padding: 40px 24px;
-  perspective: 1400px;
-  transform-style: preserve-3d;
+  padding: 40px 20px 80px;
   text-rendering: optimizeLegibility;
 }
 
@@ -1098,14 +1103,7 @@ img, video {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
-  .banking-grid { grid-template-columns: 1fr; }
-  .container { padding: 24px 16px; }
-  .quick-controls { top: 12px; right: 12px; }
-  .dragon-action-btn span { display: none; }
-  .ai-voice-banner { width: 90%; padding: 8px 16px; gap: 10px; }
-  .ai-voice-speech { font-size: 0.78rem; }
-}
+
 
 /* AI Welcome Voice Notification Banner */
 .ai-voice-banner {
@@ -1482,10 +1480,8 @@ img, video {
    DISCORD LANYARD LIVE PROFILE WIDGET (GÓC DƯỚI)
    ======================================================== */
 .discord-lanyard-widget {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 320px;
+  position: relative;
+  width: 100%;
   background: rgba(14, 18, 28, 0.92);
   border: 1px solid rgba(88, 101, 242, 0.45);
   border-radius: 20px;
@@ -1496,9 +1492,10 @@ img, video {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(88, 101, 242, 0.25);
-  z-index: 95;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   user-select: none;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .discord-lanyard-widget:hover {
@@ -1725,6 +1722,8 @@ img, video {
   text-decoration: none;
   font-weight: 600;
   transition: color 0.15s ease;
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 .detail-link:hover {
@@ -1737,29 +1736,21 @@ img, video {
   font-weight: 600;
 }
 
-/* Mobile responsive for lanyard widget */
-@media (max-width: 768px) {
-  .discord-lanyard-widget {
-    position: static;
-    width: 100%;
-    margin-top: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-  }
-}
-
 /* ========================================================
-   WIDESCREEN & MOBILE RESPONSIVE ADAPTATIONS
+   UNIVERSAL RESPONSIVE ENGINE (MOBILE & PC PIXEL-PERFECT)
    ======================================================== */
+
+/* Tablet & Smaller Laptops (<= 1060px) */
 @media (max-width: 1060px) {
   body {
-    align-items: flex-start;
-    padding: 30px 16px 80px;
+    padding: 30px 16px 85px;
   }
 
   .widescreen-layout {
     grid-template-columns: 1fr;
-    max-width: 580px;
+    max-width: 620px;
     margin: 0 auto;
+    gap: 20px;
   }
 
   .server-cards-list {
@@ -1767,23 +1758,168 @@ img, video {
   }
 }
 
-@media (max-width: 640px) {
-  .server-cards-list {
-    grid-template-columns: 1fr;
+/* Mobile & Phablets (<= 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 60px 14px 90px;
   }
 
-  .banking-grid {
-    grid-template-columns: 1fr;
+  .widescreen-layout {
+    max-width: 100%;
+    gap: 16px;
   }
 
   .quick-controls {
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     gap: 8px;
+  }
+
+  .fps-badge {
+    padding: 6px 12px;
+    font-size: 0.74rem;
   }
 
   .dragon-action-btn {
     padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+}
+
+/* Mobile Portrait Phones (<= 640px) */
+@media (max-width: 640px) {
+  body {
+    padding: 56px 12px 90px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .widescreen-layout {
+    width: 100%;
+    max-width: 100%;
+    gap: 14px;
+  }
+
+  .profile-info-card {
+    padding: 24px 16px 20px;
+  }
+
+  .avatar-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .avatar-crop-box {
+    width: 110px;
+    height: 110px;
+  }
+
+  .user-name {
+    font-size: 1.35rem;
+  }
+
+  .server-cards-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .banking-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .dragon-action-btn span {
+    display: none;
+  }
+
+  .dragon-action-btn {
+    padding: 8px 12px;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    justify-content: center;
+  }
+
+  .live-clock-badge {
+    bottom: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    gap: 8px;
+  }
+
+  .clock-time {
+    font-size: 0.88rem;
+  }
+
+  .clock-date {
+    font-size: 0.62rem;
+  }
+
+  .ai-voice-banner {
+    width: calc(100% - 24px);
+    max-width: 380px;
+    padding: 8px 14px;
+    gap: 10px;
+  }
+
+  .ai-voice-speech {
     font-size: 0.8rem;
+  }
+
+  .toast {
+    bottom: 75px;
+    font-size: 0.82rem;
+    padding: 10px 18px;
+    max-width: calc(100% - 32px);
+  }
+}
+
+/* Extra Small Phones (<= 380px, e.g. iPhone SE) */
+@media (max-width: 380px) {
+  body {
+    padding: 50px 8px 85px;
+  }
+
+  .profile-info-card,
+  .section-wrapper-card,
+  .music-player,
+  .discord-lanyard-widget {
+    padding: 14px 12px;
+    border-radius: 16px;
+  }
+
+  .user-name {
+    font-size: 1.2rem;
+  }
+
+  .user-handle {
+    font-size: 0.85rem;
+  }
+
+  .social-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .player-controls {
+    gap: 4px;
+  }
+
+  .volume-container input[type="range"] {
+    width: 50px;
+  }
+
+  .account-number {
+    font-size: 0.92rem;
+  }
+
+  .copy-btn {
+    padding: 4px 8px;
+    font-size: 0.7rem;
   }
 }

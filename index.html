@@ -102,6 +102,59 @@
           </header>
         </section>
 
+        <!-- Live Discord Lanyard Profile Card (Đồng bộ thời gian thực) -->
+        <aside class="glass-card discord-lanyard-widget" id="discord-lanyard-widget" aria-label="Discord Live Profile" data-tilt="3d">
+          <div class="card-3d-glare"></div>
+          <div class="lanyard-top-bar">
+            <div class="lanyard-brand">
+              <i class="fa-brands fa-discord"></i>
+              <span>DISCORD LIVE</span>
+            </div>
+            <div class="lanyard-status-pill" id="discord-status-pill">
+              <span class="lanyard-status-dot offline" id="discord-status-dot"></span>
+              <span class="lanyard-status-name" id="discord-status-name">Offline</span>
+            </div>
+          </div>
+
+          <div class="lanyard-user-row">
+            <div class="lanyard-avatar-container">
+              <div class="lanyard-avatar-ring"></div>
+              <img src="discord-pink-avatar.svg" alt="Discord Avatar" class="lanyard-avatar-img" id="discord-avatar-img">
+              <img src="https://cdn.discordapp.com/avatar-decoration-presets/a_41445f736db3525135b6b9e1122f2254.png" alt="Decoration" class="lanyard-avatar-decoration" id="discord-avatar-decoration">
+              <span class="lanyard-status-badge offline" id="discord-status-badge"></span>
+            </div>
+            <div class="lanyard-user-info">
+              <div class="lanyard-name-row">
+                <span class="lanyard-display-name" id="discord-display-name">! Antigravity</span>
+              </div>
+              <span class="lanyard-username" id="discord-username">@lephat51</span>
+            </div>
+            <a href="https://discord.com/users/1513183925793722505" target="_blank" rel="noopener" class="lanyard-external-btn" title="Mở Discord cá nhân">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <!-- Live Custom Status / Bio Bubble -->
+          <div class="lanyard-status-bubble" id="discord-status-bubble">
+            <span class="lanyard-bubble-emoji" id="discord-bubble-emoji">💬</span>
+            <span class="lanyard-bubble-text" id="discord-bubble-text">xin chao</span>
+          </div>
+
+          <!-- Bio / Profile Details Exactly Matching Discord Profile -->
+          <div class="lanyard-footer-details">
+            <div class="lanyard-detail-line">
+              <span class="detail-text">Mọi thứ của tôi có hết ở ⬇️</span>
+            </div>
+            <div class="lanyard-detail-line">
+              <span class="detail-label">My PRF:</span>
+              <a href="https://lephat.netlify.app/" target="_blank" rel="noopener" class="detail-link">https://lephat.netlify.app/</a>
+            </div>
+            <div class="lanyard-detail-line">
+              <span class="detail-text" style="color: #64748b;">Comeback in 15/6/2027</span>
+            </div>
+          </div>
+        </aside>
+
         <!-- Music Player Card -->
         <section class="glass-card music-player" id="music-player" data-tilt="3d">
           <div class="card-3d-glare"></div>
@@ -299,56 +352,6 @@
     </div>
     <span class="clock-dot"></span>
   </div>
-
-  <!-- Live Discord Lanyard Profile Card (Góc dưới bên phải) -->
-  <aside class="discord-lanyard-widget" id="discord-lanyard-widget" aria-label="Discord Live Profile">
-    <div class="lanyard-top-bar">
-      <div class="lanyard-brand">
-        <i class="fa-brands fa-discord"></i>
-        <span>DISCORD</span>
-      </div>
-      <div class="lanyard-status-pill" id="discord-status-pill">
-        <span class="lanyard-status-dot offline" id="discord-status-dot"></span>
-        <span class="lanyard-status-name" id="discord-status-name">Offline</span>
-      </div>
-    </div>
-
-    <div class="lanyard-user-row">
-      <div class="lanyard-avatar-container">
-        <div class="lanyard-avatar-ring"></div>
-        <img src="avatar.png" alt="Discord Avatar" class="lanyard-avatar-img" id="discord-avatar-img">
-        <img src="https://cdn.discordapp.com/avatar-decoration-presets/a_41445f736db3525135b6b9e1122f2254.png" alt="Decoration" class="lanyard-avatar-decoration" id="discord-avatar-decoration">
-        <span class="lanyard-status-badge offline" id="discord-status-badge"></span>
-      </div>
-      <div class="lanyard-user-info">
-        <div class="lanyard-name-row">
-          <span class="lanyard-display-name" id="discord-display-name">! Antigravity</span>
-        </div>
-        <span class="lanyard-username" id="discord-username">@lephat51</span>
-      </div>
-      <a href="https://discord.com/users/1513183925793722505" target="_blank" rel="noopener" class="lanyard-external-btn" title="Mở Discord">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
-    </div>
-
-    <!-- Live Custom Status / Bio Bubble -->
-    <div class="lanyard-status-bubble" id="discord-status-bubble">
-      <span class="lanyard-bubble-emoji" id="discord-bubble-emoji">❤️ 🔥</span>
-      <span class="lanyard-bubble-text" id="discord-bubble-text">Gọi em là em, đơn giản em là em.</span>
-    </div>
-
-    <!-- Bio / Server Quick Links -->
-    <div class="lanyard-footer-details">
-      <div class="lanyard-detail-line">
-        <span class="detail-label">Community:</span>
-        <a href="https://discord.gg/RcCabQNnr" target="_blank" rel="noopener" class="detail-link">WonderLand Store</a>
-      </div>
-      <div class="lanyard-detail-line">
-        <span class="detail-label">Role:</span>
-        <span class="detail-text">Developer AI</span>
-      </div>
-    </div>
-  </aside>
 
   <script src="script.js"></script>
 </body>
