@@ -126,7 +126,7 @@ img, video {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 100px rgba(0, 210, 255, 0.2);
+  box-shadow: 0 0 100px rgba(255, 30, 30, 0.25);
 }
 
 .dragon-video-bg {
