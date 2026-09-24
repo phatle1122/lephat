@@ -634,15 +634,28 @@ setInterval(updateLiveClock, 1000);
       mainStatusIndicator.setAttribute('title', s.label);
     }
 
-    // 2. Avatar tài khoản Discord: giữ nguyên avatar sấm cũ (avatar.png)
+    // 2. Avatar tài khoản Discord: đồng bộ cả avatar chính và avatar Discord Live
     if (avatarImg) {
       avatarImg.src = 'avatar.png';
     }
+    const mainAvatarEl = document.getElementById('avatar');
+    if (mainAvatarEl) {
+      mainAvatarEl.src = 'avatar.png';
+    }
 
-    // 3. Khung trang trí Avatar: Biểu tượng Sấm sét (Lightning Avatar Decoration)
+    // 3. Khung trang trí Avatar: Mũ trùm đầu thần chết sấm xanh ngọc (Grim Reaper Hood)
+    const mainDecoEl = document.getElementById('main-avatar-decoration');
+    const decoSrc = (discord_user && discord_user.avatar_decoration_data && discord_user.avatar_decoration_data.asset)
+      ? `https://cdn.discordapp.com/avatar-decoration-presets/${discord_user.avatar_decoration_data.asset}.png?size=240&passthrough=true`
+      : 'decoration-hood.png';
+
     if (decorationImg) {
-      decorationImg.src = 'decoration-lightning.png';
+      decorationImg.src = decoSrc;
       decorationImg.style.display = 'block';
+    }
+    if (mainDecoEl) {
+      mainDecoEl.src = decoSrc;
+      mainDecoEl.style.display = 'block';
     }
 
     // 4. Tên hiển thị và Username
