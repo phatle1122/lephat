@@ -1601,6 +1601,7 @@ img, video {
   height: calc(100% + 12px);
   pointer-events: none;
   z-index: 3;
+  filter: drop-shadow(0 0 10px rgba(255, 187, 0, 0.85));
 }
 
 .lanyard-status-badge {
