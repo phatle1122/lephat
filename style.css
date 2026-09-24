@@ -78,7 +78,7 @@ img, video {
 }
 
 /* ========================================================
-   4K 120FPS WIDESCREEN CINEMATIC VIDEO BACKGROUND
+   ULTRA SMOOTH 4K 120FPS HARDWARE ACCELERATED VIDEO
    ======================================================== */
 .video-background-wrapper {
   position: fixed;
@@ -89,7 +89,9 @@ img, video {
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
-  background: #020408;
+  background: #000000;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 /* Ambient video layer for peripheral saturation */
@@ -100,46 +102,45 @@ img, video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(40px) brightness(0.28) saturate(1.2);
-  transform: scale(1.08);
+  filter: blur(35px) brightness(0.35) saturate(1.3);
+  transform: scale(1.06) translateZ(0);
+  will-change: transform;
   z-index: 1;
 }
 
-/* Full widescreen video covering the entire screen horizontally */
+/* Full screen video covering screen with ultra smooth rendering */
 .vertical-video-frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 2;
-  aspect-ratio: auto;
-  max-width: 100vw;
-  box-shadow: none;
+  transform: translateZ(0);
 }
 
 .dragon-video-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  filter: brightness(0.85) contrast(1.08);
-}
-
-.vertical-frame-border {
-  display: none;
+  object-position: center;
+  filter: brightness(0.92) contrast(1.1);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .video-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(3, 5, 12, 0.45) 0%, rgba(3, 5, 12, 0.82) 100%);
+  background: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 0.3) 0%, rgba(2, 6, 14, 0.75) 100%);
   z-index: 3;
 }
 
 .vignette-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(1, 2, 6, 0.9) 100%);
+  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.85) 100%);
   z-index: 3;
 }
 
