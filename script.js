@@ -639,9 +639,14 @@ setInterval(updateLiveClock, 1000);
       avatarImg.src = 'avatar.png';
     }
 
-    // 3. Khung trang trí Avatar
+    // 3. Khung trang trí Avatar (Discord Avatar Decoration)
     if (decorationImg) {
-      decorationImg.style.display = 'none';
+      if (discord_user && discord_user.avatar_decoration_data && discord_user.avatar_decoration_data.asset) {
+        decorationImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${discord_user.avatar_decoration_data.asset}.png`;
+      } else {
+        decorationImg.src = 'https://cdn.discordapp.com/avatar-decoration-presets/a_41445f736db3525135b6b9e1122f2254.png';
+      }
+      decorationImg.style.display = 'block';
     }
 
     // 4. Tên hiển thị và Username
