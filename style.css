@@ -1597,6 +1597,15 @@ img, video {
   background: #0f1320;
 }
 
+.lanyard-avatar-decoration {
+  position: absolute;
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  pointer-events: none;
+  z-index: 3;
+}
+
 .lanyard-status-badge {
   position: absolute;
   bottom: 0;
@@ -1606,7 +1615,7 @@ img, video {
   border-radius: 50%;
   border: 2.5px solid #0e121c;
   background-color: #6b7280;
-  z-index: 3;
+  z-index: 4;
 }
 
 .lanyard-status-badge.online { background-color: #22c55e; }

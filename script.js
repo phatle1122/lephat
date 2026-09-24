@@ -583,25 +583,28 @@ setInterval(updateLiveClock, 1000);
 // REAL-TIME DISCORD LANYARD STATUS & BIO ENGINE (WEBSOCKET + REST)
 // ========================================================
 (function initDiscordLanyard() {
-  let discordUserId = localStorage.getItem('paneer_discord_id') || '';
+  const PANEER_DISCORD_ID = '1513183925793722505';
+  let discordUserId = localStorage.getItem('paneer_discord_id') || PANEER_DISCORD_ID;
 
   const statusDot = document.getElementById('discord-status-dot');
   const statusName = document.getElementById('discord-status-name');
   const statusBadge = document.getElementById('discord-status-badge');
   const avatarImg = document.getElementById('discord-avatar-img');
+  const decorationImg = document.getElementById('discord-avatar-decoration');
   const displayNameEl = document.getElementById('discord-display-name');
   const usernameEl = document.getElementById('discord-username');
   const bubbleEmoji = document.getElementById('discord-bubble-emoji');
   const bubbleText = document.getElementById('discord-bubble-text');
+  const mainStatusIndicator = document.querySelector('.status-indicator');
 
   function updateDiscordUI(data) {
     if (!data) return;
     const { discord_user, discord_status, activities } = data;
 
-    // 1. Trạng thái hoạt động (Online, Idle, DND, Offline)
+    // 1. Trạng thái hoạt động thời gian thực (Online, Idle, DND, Offline)
     const statusMap = {
       online: { label: 'Online', class: 'online' },
-      idle: { label: 'Chờ', class: 'idle' },
+      idle: { label: 'Chờ (Idle)', class: 'idle' },
       dnd: { label: 'Đừng làm phiền', class: 'dnd' },
       offline: { label: 'Offline', class: 'offline' }
     };
@@ -611,14 +614,30 @@ setInterval(updateLiveClock, 1000);
     if (statusBadge) statusBadge.className = `lanyard-status-badge ${s.class}`;
     if (statusName) statusName.textContent = s.label;
 
-    // 2. Avatar trực tiếp từ tài khoản Discord
+    // Đồng bộ chấm trạng thái trên avatar chính ở góc thẻ
+    if (mainStatusIndicator) {
+      mainStatusIndicator.className = `status-indicator ${s.class}`;
+      mainStatusIndicator.setAttribute('title', s.label);
+    }
+
+    // 2. Avatar tài khoản Discord
     if (discord_user && discord_user.avatar && avatarImg) {
       const isGif = discord_user.avatar.startsWith('a_');
       const ext = isGif ? 'gif' : 'png';
       avatarImg.src = `https://cdn.discordapp.com/avatars/${discord_user.id}/${discord_user.avatar}.${ext}?size=128`;
     }
 
-    // 3. Tên hiển thị và Username
+    // 3. Khung trang trí Avatar (Discord Avatar Decoration)
+    if (decorationImg) {
+      if (discord_user && discord_user.avatar_decoration_data && discord_user.avatar_decoration_data.asset) {
+        decorationImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${discord_user.avatar_decoration_data.asset}.png`;
+        decorationImg.style.display = 'block';
+      } else {
+        decorationImg.style.display = 'none';
+      }
+    }
+
+    // 4. Tên hiển thị và Username
     if (discord_user) {
       if (displayNameEl) {
         displayNameEl.textContent = discord_user.global_name || discord_user.display_name || discord_user.username;
@@ -628,10 +647,10 @@ setInterval(updateLiveClock, 1000);
       }
     }
 
-    // 4. Tiểu sử & Trạng thái tùy chỉnh (Custom Status)
+    // 5. Tiểu sử & Trạng thái tùy chỉnh (Custom Status / Bio)
     const customStatus = activities ? activities.find(a => a.type === 4) : null;
-    if (customStatus) {
-      if (bubbleText) bubbleText.textContent = customStatus.state || 'Đang hoạt động';
+    if (customStatus && customStatus.state) {
+      if (bubbleText) bubbleText.textContent = customStatus.state;
       if (bubbleEmoji) {
         if (customStatus.emoji) {
           if (customStatus.emoji.id) {
@@ -643,6 +662,9 @@ setInterval(updateLiveClock, 1000);
           bubbleEmoji.textContent = '💬';
         }
       }
+    } else {
+      if (bubbleText) bubbleText.textContent = 'Gọi em là em, đơn giản em là em.';
+      if (bubbleEmoji) bubbleEmoji.textContent = '❤️ 🔥';
     }
   }
 
