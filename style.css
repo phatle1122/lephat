@@ -1408,83 +1408,205 @@ img, video {
   font-size: 1rem;
 }
 
-.server-cards-list {
+/* Modern Discord Community Cards (Matching User Aesthetic) */
+.community-cards-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
-.server-card {
-  padding: 0;
-  border-radius: 18px;
-  border: 1px solid rgba(88, 101, 242, 0.45);
-  background: rgba(18, 22, 25, 0.95);
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.85);
+.discord-community-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(18, 19, 26, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
   overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  will-change: transform;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.server-card:hover {
-  border-color: #00d2ff;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 210, 255, 0.45);
-}
-
-.server-image-container {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  background: #121619;
-}
-
-.server-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-}
-
-.server-card:hover .server-img {
-  transform: scale(1.05);
-}
-
-.join-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 70;
-  pointer-events: auto !important;
-  cursor: pointer;
-  background: linear-gradient(135deg, #5865f2, #00d2ff);
-  color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  padding: 5px 14px;
-  border-radius: 20px;
   text-decoration: none;
-  display: inline-flex;
+  color: inherit;
+  position: relative;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.discord-community-card:hover {
+  border-color: rgba(88, 101, 242, 0.65);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.95), 0 0 25px rgba(88, 101, 242, 0.35);
+  transform: translateY(-3px) scale(1.015);
+}
+
+.community-banner {
+  position: relative;
+  width: 100%;
+  height: 105px;
+  overflow: hidden;
+  background: #0f1117;
+}
+
+.community-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, transparent 45%, rgba(18, 19, 26, 0.92) 100%);
+  pointer-events: none;
+}
+
+.community-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.discord-community-card:hover .community-banner-img {
+  transform: scale(1.06);
+}
+
+.community-badge-tag {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  z-index: 2;
+  font-family: 'Cinzel', 'Plus Jakarta Sans', monospace, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+.community-body {
+  padding: 14px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.community-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.community-avatar-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #151720;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.community-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.community-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.community-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.community-sub {
+  display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.85), 0 0 15px rgba(0, 210, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
-  transition: transform 0.12s ease-out, background 0.12s ease-out, box-shadow 0.12s ease-out;
+  font-size: 0.76rem;
+  color: #949ba4;
+  font-weight: 500;
 }
 
-.server-card:hover .join-btn {
-  transform: translateY(-2px) scale(1.06);
-  background: linear-gradient(135deg, #00f5d4, #5865f2);
-  color: #060911;
-  box-shadow: 0 8px 28px rgba(0, 245, 212, 0.95), 0 0 20px rgba(88, 101, 242, 0.9);
-  border-color: #00f5d4;
+.community-sub i {
+  color: #5865f2;
+  font-size: 0.85rem;
+}
+
+.community-description {
+  font-size: 0.83rem;
+  color: #949ba4;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.community-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+.community-action-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #dbdee1;
+  transition: color 0.2s ease;
+}
+
+.community-arrow {
+  font-size: 0.78rem;
+  color: #949ba4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.discord-community-card:hover .community-action-label {
+  color: #ffffff;
+}
+
+.discord-community-card:hover .community-arrow {
+  color: #00d2ff;
+  transform: translate(2px, -2px);
+}
+
+/* Quote Footer Below Community Cards */
+.community-quote-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.community-quote-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c084fc;
+  box-shadow: 0 0 8px #c084fc;
+}
+
+.community-quote-text {
+  font-family: 'Plus Jakarta Sans', monospace, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.02em;
 }
 
 /* ========================================================
@@ -1792,7 +1914,7 @@ img, video {
     gap: 20px;
   }
 
-  .server-cards-list {
+  .community-cards-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1806,6 +1928,11 @@ img, video {
   .widescreen-layout {
     max-width: 100%;
     gap: 16px;
+  }
+
+  .community-cards-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
   .quick-controls {
@@ -1861,7 +1988,7 @@ img, video {
     font-size: 1.35rem;
   }
 
-  .server-cards-list {
+  .community-cards-list {
     grid-template-columns: 1fr;
     gap: 14px;
   }
