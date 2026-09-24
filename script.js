@@ -100,34 +100,25 @@ nextBtn?.addEventListener('click', () => {
 });
 
 // ========================================================
-// FOOLPROOF AUTO-PLAY ON ENTER (DIRECT & ON 1ST INTERACTION)
+// ZERO-DELAY INSTANT AUDIO UNLOCK (1-SHOT PASSIVE)
 // ========================================================
-
-const interactionEvents = ['pointerdown', 'mousedown', 'touchstart', 'touchend', 'click', 'keydown', 'scroll', 'wheel'];
-
-function onUserInteraction() {
-  if (!hasStartedMusic || (realAudio && realAudio.paused)) {
-    playSoundtrack();
-  }
-}
-
-function addUnlockListeners() {
-  interactionEvents.forEach(evt => {
-    window.addEventListener(evt, onUserInteraction, { passive: true });
-    document.addEventListener(evt, onUserInteraction, { passive: true });
-  });
-}
-
-function removeUnlockListeners() {
-  interactionEvents.forEach(evt => {
-    window.removeEventListener(evt, onUserInteraction);
-    document.removeEventListener(evt, onUserInteraction);
+let audioUnlocked = false;
+function unlockAudioOnce() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  playSoundtrack();
+  ['pointerdown', 'touchstart'].forEach(evt => {
+    window.removeEventListener(evt, unlockAudioOnce);
+    document.removeEventListener(evt, unlockAudioOnce);
   });
 }
 
 function startMusicAuto() {
-  addUnlockListeners();
   playSoundtrack();
+  ['pointerdown', 'touchstart'].forEach(evt => {
+    window.addEventListener(evt, unlockAudioOnce, { passive: true, once: true });
+    document.addEventListener(evt, unlockAudioOnce, { passive: true, once: true });
+  });
 }
 
 // Trigger immediately on load
@@ -198,16 +189,18 @@ realAudio?.addEventListener('timeupdate', () => {
   }
 });
 
-// Smooth 120FPS animation frame progress updater
+// High-Performance Smooth Audio Progress Updater (Batched DOM writes)
+let lastRenderedSec = -1;
 function updateProgressSmooth() {
   if (realAudio && !realAudio.paused && realAudio.duration) {
-    if (currentTimeEl) {
-      currentTimeEl.textContent = formatTime(realAudio.currentTime);
+    const curTime = realAudio.currentTime;
+    const curSec = Math.floor(curTime);
+    if (curSec !== lastRenderedSec) {
+      lastRenderedSec = curSec;
+      if (currentTimeEl) currentTimeEl.textContent = formatTime(curTime);
     }
-    const percent = (realAudio.currentTime / realAudio.duration) * 100;
-    if (progressBar) {
-      progressBar.style.width = `${percent}%`;
-    }
+    const percent = (curTime / realAudio.duration) * 100;
+    if (progressBar) progressBar.style.width = `${percent}%`;
   }
   requestAnimationFrame(updateProgressSmooth);
 }
@@ -280,21 +273,16 @@ document.querySelectorAll('.account-number').forEach(el => {
   });
 });
 
-// Handle Server card & Join button clicks reliably
+// Handle Server card & Join button clicks instantly with zero delay
 document.querySelectorAll('.server-card').forEach(card => {
   card.addEventListener('click', (e) => {
     const btn = card.querySelector('.join-btn');
     const href = card.getAttribute('data-href') || (btn ? btn.getAttribute('href') : null);
-    if (!href || href === '#' || href === 'https://discord.gg/') {
-      if (href === 'https://discord.gg/') {
-        window.open('https://discord.gg/', '_blank', 'noopener,noreferrer');
-        return;
-      }
+    if (!href || href === '#') {
       e.preventDefault();
       showToast('Đang chờ link mời Discord từ paneer...');
       return;
     }
-    // If click didn't land directly on the <a> link itself, trigger navigation
     if (!e.target.closest('.join-btn')) {
       window.open(href, '_blank', 'noopener,noreferrer');
     }
@@ -303,27 +291,11 @@ document.querySelectorAll('.server-card').forEach(card => {
 
 document.querySelectorAll('.join-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    e.stopPropagation();
     const href = btn.getAttribute('href');
     if (!href || href === '#') {
       e.preventDefault();
+      e.stopPropagation();
       showToast('Đang chờ link mời Discord từ paneer...');
-    }
-  });
-});
-
-// Guaranteed clickability for social links (FB, Discord, TikTok)
-document.querySelectorAll('.social-icon').forEach(icon => {
-  icon.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const href = icon.getAttribute('href');
-    if (href && href !== '#' && !href.startsWith('javascript:')) {
-      // In case default navigation was interfered by 3D transform lerp
-      setTimeout(() => {
-        if (!document.hidden) {
-          window.open(href, '_blank', 'noopener,noreferrer');
-        }
-      }, 80);
     }
   });
 });
