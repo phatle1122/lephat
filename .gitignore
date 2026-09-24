@@ -1,0 +1,7 @@
+# Executables & temporary files
+cloudflared.exe
+*.log
+*.zip
+web_deploy/
+.system_generated/
+scratch/
